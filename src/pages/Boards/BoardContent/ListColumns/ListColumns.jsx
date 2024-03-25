@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 
 
-function ListColumns({ columns, createNewColumn, createNewCard }) {
+function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
   // nếu openNewColumnForm là false , khi chạy qua toggle sẽ chuyển về true
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
@@ -49,7 +49,7 @@ function ListColumns({ columns, createNewColumn, createNewCard }) {
       }}>
         {/* Column */}
         {columns?.map(column => (
-          <Column key={column._id} column = {column} createNewCard={createNewCard}/>
+          <Column key={column._id} column = {column} createNewCard={createNewCard} deleteColumnDetails={deleteColumnDetails}/>
         ))}
 
         {/*Box Add new column */}

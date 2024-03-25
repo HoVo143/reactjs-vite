@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import SelectMode from '~/components/ModeSelect/SelectMode'
 import AppsIcon from '@mui/icons-material/Apps'
-import { ReactComponent as TrelloLogo} from '~/assets/trello.svg'
+import { ReactComponent as TrelloLogo } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
 import Typography from '@mui/material/Typography'
 import Workspaces from './Menus/workspaces'
@@ -23,7 +23,7 @@ import { useState } from 'react' // khi cập nhật sẽ render lại component
 
 const AppBar = () => {
 
-  const [ searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState('')
 
   return (
     <div>
@@ -75,7 +75,7 @@ const AppBar = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{color: 'white'}}/>
+                  <SearchIcon sx={{ color: 'white' }}/>
                 </InputAdornment>
               ),
               endAdornment: (
@@ -103,12 +103,12 @@ const AppBar = () => {
           />
           <SelectMode/>
           <Tooltip title="nofitications">
-            <Badge color="warning" variant="dot" sx={{cursor: 'pointer' }}>
-              <NotificationsNoneIcon sx={{color: 'white' }} />
+            <Badge color="warning" variant="dot" sx={{ cursor: 'pointer' }}>
+              <NotificationsNoneIcon sx={{ color: 'white' }} />
             </Badge>
           </Tooltip>
           <Tooltip title="help">
-            <HelpOutlineIcon sx={{cursor: 'pointer', color: 'white' }} />
+            <HelpOutlineIcon sx={{ cursor: 'pointer', color: 'white' }} />
           </Tooltip>
           {/* Profiles */}
           <Profiles/>

@@ -6,9 +6,9 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import ContentCut from '@mui/icons-material/ContentCut'
-import ContentCopy from '@mui/icons-material/ContentCopy'
-import ContentPaste from '@mui/icons-material/ContentPaste'
+// import ContentCut from '@mui/icons-material/ContentCut'
+// import ContentCopy from '@mui/icons-material/ContentCopy'
+// import ContentPaste from '@mui/icons-material/ContentPaste'
 import Cloud from '@mui/icons-material/Cloud'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Tooltip from '@mui/material/Tooltip'
@@ -23,9 +23,10 @@ import { CSS } from '@dnd-kit/utilities'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import { toast } from 'react-toastify'
+import { useConfirm } from 'material-ui-confirm'
 // import { Opacity } from '@mui/icons-material'
 
-function Column({ column, createNewCard }) {
+function Column({ column, createNewCard, deleteColumnDetails }) {
 
   const {
     attributes,
@@ -55,7 +56,8 @@ function Column({ column, createNewCard }) {
     setAnchorEl(null)
   }
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  // cards đã đc sắp xếp ở component cha cao nhât (boards/_id.jsx)
+  const orderedCards = column.cards
 
   ////
   // nếu openNewColumnForm là false , khi chạy qua toggle sẽ chuyển về true
@@ -69,7 +71,7 @@ function Column({ column, createNewCard }) {
       toast.error('Please enter Card Title', { position: 'bottom-right' })
       return
     }
-    console.log(newCardTitle)
+    // console.log(newCardTitle)
 
     // tạo dữ liệu để gọi api
     const newCardData = {
@@ -83,6 +85,34 @@ function Column({ column, createNewCard }) {
     // đóng lại trạng thái thêm Card mới và clear input
     toggleOpenNewCardForm()
     setNewCardTitle('')
+  }
+
+  //Xử lý xóa 1 column và card bên trong nó
+  const confimDeleteColumn = useConfirm()
+
+  const handleDeleteColumn = () => {
+    confimDeleteColumn({
+      //custom hiện thông báo xóa
+      title: 'Delete Column',
+      description: 'this action will permanently delete your column and its cards! are you sure?',
+      confirmationText: 'Confim',
+      cancellationText: 'Cancel',
+      dialogProps: { maxWidth: 'xs' },
+      allowClose: false, // tránh nhấp bên ngoài tắt form, mà chỉ chọn 1 trong 2 / cancel or confim
+      cancellationButtonProps: { color: 'inherit' },
+      confirmationButtonProps: { color: 'primary', variant: 'outlined' }
+
+      // description: 'phải nhập chữ delete mới được tắt :v',
+      // confirmationKeyword: 'delete',
+      // buttonOrder: ["cancel", "confirm"] //giúp đảo vị trí 2 bên
+    }).then(() => {
+      // Gọi lên props function deleteColumnDetails nằm ở component cha cao nhất (boards/_id.jsx)
+      // Sau này sẽ đưa dữ liệu Board ra ngoài Redux Global Store để có thể gọi Api ở đây thay vì phải lần
+      // lượt gọi ngược lên những component cha phía bên trên
+      deleteColumnDetails(column._id)
+    }).catch(() => {
+
+    })
   }
 
   return (
@@ -134,15 +164,23 @@ function Column({ column, createNewCard }) {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
+              onClick={handleClose}
               MenuListProps={{
                 'aria-labelledby': 'basic-column-dropdown'
               }}
             >
-              <MenuItem>
-                <ListItemIcon><AddCardIcon fontSize="small" /></ListItemIcon>
+              <MenuItem
+                onClick={toggleOpenNewCardForm}
+                sx={{
+                  '&:hover' : {
+                    color: 'success.dark',
+                    '& .add-card-icon': { color: 'success.dark' }
+                  }
+                }}>
+                <ListItemIcon><AddCardIcon fontSize="small" className='add-card-icon' /></ListItemIcon>
                 <ListItemText>Add new card</ListItemText>
               </MenuItem>
-              <MenuItem>
+              {/* <MenuItem>
                 <ListItemIcon><ContentCut fontSize="small" /></ListItemIcon>
                 <ListItemText>Cut</ListItemText>
               </MenuItem>
@@ -153,11 +191,18 @@ function Column({ column, createNewCard }) {
               <MenuItem>
                 <ListItemIcon><ContentPaste fontSize="small" /></ListItemIcon>
                 <ListItemText>Pass</ListItemText>
-              </MenuItem>
+              </MenuItem> */}
               <Divider />
-              <MenuItem>
-                <ListItemIcon> <DeleteForeverIcon fontSize="small" /> </ListItemIcon>
-                <ListItemText>Remove this column</ListItemText>
+              <MenuItem
+                onClick={handleDeleteColumn}
+                sx={{
+                  '&:hover' : {
+                    color: 'warning.dark',
+                    '& .delete-forever-icon': { color: 'warning.dark' }
+                  }
+                }}>
+                <ListItemIcon> <DeleteForeverIcon fontSize="small" className='delete-forever-icon' /> </ListItemIcon>
+                <ListItemText>Delete this column</ListItemText>
               </MenuItem>
               <MenuItem>
                 <ListItemIcon> <Cloud fontSize="small" /> </ListItemIcon>
