@@ -1,5 +1,5 @@
 
-import { experimental_extendTheme as extendTheme} from '@mui/material/styles';
+import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 // import {teal,deepOrange, cyan, orange} from '@mui/material/colors'
 // Create a theme instance.
 const APP_BAR_HEIGHT = '58px'
@@ -21,7 +21,7 @@ const theme = extendTheme({
     //   palette: {
     //     primary: teal,
     //     secondary: deepOrange
-  
+
     //   }
     // },
     // dark: {
@@ -54,20 +54,20 @@ const theme = extendTheme({
         root: {
           textTransform: 'none',
           borderWidth: '0.5px'
-        },
-      },
+        }
+      }
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: ({theme})=> ({
+        root: ({ theme }) => ({
           // color: theme.palette.primary.main,
           fontSize: '0.875rem',
           // '.MuiOutlinedInput-notchedOutline' : {
-          //     borderColor: theme.palette.primary.light,             
+          //     borderColor: theme.palette.primary.light,
           // },
           // '&:hover' : {
           //   '.MuiOutlinedInput-notchedOutline' : {
-          //     borderColor: theme.palette.primary.main,             
+          //     borderColor: theme.palette.primary.main,
           //   }
           // },
           '& fieldset': {
@@ -84,20 +84,20 @@ const theme = extendTheme({
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: ({theme}) => ({
+        root: ({ theme }) => ({
           // color: theme.palette.primary.main,
-          fontSize: '0.875rem',
+          fontSize: '0.875rem'
         })
-      },
+      }
     },
     MuiTypography:{
       styleOverrides: {
         root: {
-          '&.MuiTypography-body1' : {fontSize: '0.875rem'}
-        },
-      },
+          '&.MuiTypography-body1' : { fontSize: '0.875rem' }
+        }
+      }
     }
-  },
+  }
   // ...other properties
-});
+})
 export default theme

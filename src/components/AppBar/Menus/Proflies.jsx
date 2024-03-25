@@ -22,17 +22,17 @@ function Profiles() {
   return (
     <div>
       <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ padding: 0 }}
-            aria-controls={open ? 'basic-menu-profiles' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <Avatar sx={{ width: 36, height: 36 }}>H</Avatar>
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ padding: 0 }}
+          aria-controls={open ? 'basic-menu-profiles' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          <Avatar sx={{ width: 36, height: 36 }}>H</Avatar>
+        </IconButton>
+      </Tooltip>
       <Menu
         id="basic-menu-profiles"
         anchorEl={anchorEl}

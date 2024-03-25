@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
@@ -20,9 +20,12 @@ import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import TextField from '@mui/material/TextField'
+import CloseIcon from '@mui/icons-material/Close'
+import { toast } from 'react-toastify'
 // import { Opacity } from '@mui/icons-material'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
 
   const {
     attributes,
@@ -53,6 +56,34 @@ function Column({ column }) {
   }
 
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+
+  ////
+  // nếu openNewColumnForm là false , khi chạy qua toggle sẽ chuyển về true
+  const [openNewCardForm, setOpenNewCardForm] = useState(false)
+  const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
+
+  const [newCardTitle, setNewCardTitle] = useState('')
+
+  const addNewCard = async () => {
+    if (!newCardTitle) {
+      toast.error('Please enter Card Title', { position: 'bottom-right' })
+      return
+    }
+    console.log(newCardTitle)
+
+    // tạo dữ liệu để gọi api
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+    // Gọi lên props function createNewCard nằm ở component cha cao nhất (boards/_id.jsx)
+    // Sau này sẽ đưa dữ liệu Board ra ngoài Redux Global Store để có thể gọi Api ở đây thay vì phải lần
+    // lượt gọi ngược lên những component cha phía bên trên
+    await createNewCard(newCardData)
+    // đóng lại trạng thái thêm Card mới và clear input
+    toggleOpenNewCardForm()
+    setNewCardTitle('')
+  }
 
   return (
     //phải bọc div ở đây vì vấn đề chiều cao column khi kéo thả
@@ -149,10 +180,77 @@ function Column({ column }) {
           alignItems: 'center',
           justifyContent:'space-between'
         }}>
-          <Button startIcon={<AddCardIcon/>}>Add new card</Button>
-          <Tooltip title= "Drag to move">
-            <DragHandleIcon sx={{ cursor: 'pointer' }}/>
-          </Tooltip>
+          {!openNewCardForm
+            ? <Box sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent:'space-between'
+            }}>
+              <Button startIcon={<AddCardIcon/>} onClick={toggleOpenNewCardForm} >Add new card</Button>
+              <Tooltip title= "Drag to move">
+                <DragHandleIcon sx={{ cursor: 'pointer' }}/>
+              </Tooltip>
+            </Box>
+            : <Box sx={{ display:'flex', justifyContent:'center' }}>
+              <TextField
+                label="Enter card..."
+                // type="search"
+                type="text"
+                size='small'
+                variant='outlined'
+                autoFocus // dùng để khi nhấp vào button sẽ tự động focus vào
+                data-no-dnd="true" // fix lỗi lúc bôi chữ trong ô input trong column
+                value={newCardTitle}
+                onChange={(e) => setNewCardTitle(e.target.value)} //bắt sự kiện onchange
+                sx={{
+                  '& label' : { color: 'text.primary' },
+                  '& input' : {
+                    color: (theme) => theme.palette.primary.main,
+                    bgcolor: (theme) => {theme.palette.mode === 'dark' ? '#333643' : 'white'}
+                  },
+                  '& label.Mui-focused' : { color: (theme) => theme.palette.primary.main },
+                  '& .MuiOutlinedInput-root' : {
+                    '& fieldset': { borderColor: (theme) => theme.palette.primary.main },
+                    '&:hover fieldset': { borderColor: (theme) => theme.palette.primary.main },
+                    '&.Mui-focused fieldset': { borderColor: (theme) => theme.palette.primary.main }
+                  },
+                  '& .MuiOutlinedInput-input' : {
+                    borderRadius: 1
+                  }
+                }}
+              />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, marginLeft: '3px' }}>
+                <Button
+                  onClick={addNewCard}
+                  variant='contained'
+                  size='small'
+                  sx={{
+                    minWidth:'50px',
+                    minHeight: '100%',
+                    boxShadow: 'none',
+                    border: '0.5px solid',
+                    borderColor: (theme) => theme.palette.primary.main,
+                    bgcolor: (theme) => theme.palette.primary.main,
+                    '&:hover' : { bgcolor: (theme) => theme.palette.primary.main }
+                  }}
+                > Add </Button>
+                <CloseIcon
+                  fontSize='small'
+                  sx={{
+                    minWidth: '50px',
+                    minHeight: '100%',
+                    color: (theme) => theme.palette.warning.light,
+                    cursor: 'pointer',
+                    borderRadius: '3px',
+                    bgcolor: (theme) => theme.palette.primary.main,
+                    '&:hover' : { bgcolor: (theme) => theme.palette.error.main }
+                  }}
+                  onClick = {toggleOpenNewCardForm} //set về rỗng
+                />
+              </Box>
+            </Box>
+          }
         </Box>
         {/*BOX COLUMN END FOOTER */}
       </Box>

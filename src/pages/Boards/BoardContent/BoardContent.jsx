@@ -7,8 +7,8 @@ import {
   // PointerSensor,
   useSensor,
   useSensors,
-  MouseSensor,
-  TouchSensor,
+  // MouseSensor,
+  // TouchSensor,
   DragOverlay,
   defaultDropAnimationSideEffects,
   closestCorners,
@@ -18,11 +18,14 @@ import {
   // closestCenter
 } from '@dnd-kit/core'
 
+// fix lỗi lúc bôi chữ trong ô input trong column
+import { MouseSensor, TouchSensor } from '~/customLibraries/DndKitSensors'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
-import { cloneDeep, isEmpty, over } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 import { generatePlaceholderCard } from '~/utils/formatters'
 
 const ACTIVE_DRAG_ITEM_TYPE = {
@@ -30,7 +33,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   //nếu dùng PointerSensor mặc định thì phải kết hợp thuộc tính css touch-action : none ở những nơi kéo thả
   // const pointerSensor = useSensor(PointerSensor, {activationConstraint: {distance: 10}})
 
@@ -42,6 +45,7 @@ function BoardContent({ board }) {
   const sensors = useSensors(mouseSensor, touchSensor)
 
   //ưu tiên sử dụng 2 loại sensors là mouse và touch để có trải nghiệm tốt trên mobile, ko bị bug
+
   // const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
   const [orderedColumns, setOrderedColumns] = useState([])
   // cùng 1 thời điểm chỉ có 1 ptu đang dc kéo (column hoặc card)
@@ -272,10 +276,12 @@ function BoardContent({ board }) {
         //dùng arrayMove của dnd-kit để sắp xếp lại mảng columns ban đầu
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex)
 
-        //sau dùng để xử lý api
-        // const dndOrderedColumnsIds = dndOrderedColumns.map(c => c._id)
-        // console.log('dndOrderedColumns: ',dndOrderedColumns)
-        // console.log('dndOrderedColumnsIds: ',dndOrderedColumnsIds)
+        // Gọi lên props function createNewCard nằm ở component cha cao nhất (boards/_id.jsx)
+        // Sau này sẽ đưa dữ liệu Board ra ngoài Redux Global Store để có thể gọi Api ở đây thay vì phải lần
+        // lượt gọi ngược lên những component cha phía bên trên
+        moveColumns(dndOrderedColumns)
+
+        // vẫn gọi update state ở đây để tranh delay hoặc flickering giao diện lúc kéo thả cần phải chờ gọi api
         //cập nhật lại state columns sau khi kéo thả
         setOrderedColumns(dndOrderedColumns)
       }
@@ -361,10 +367,10 @@ function BoardContent({ board }) {
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
       }}>
         {/* List Columns */}
-        <ListColumns columns = {orderedColumns} />
+        <ListColumns columns = {orderedColumns} createNewColumn = {createNewColumn} createNewCard={createNewCard}/>
         {/* end List Columns */}
 
-        {/* dùng DragOverlay để khi kéo có th giữ chỗ */}
+        {/* dùng DragOverlay để khi kéo có th giữ chỗ (hiện mờ) */}
         <DragOverlay dropAnimation={customDropAnimation}>
           {/* nếu ko phần tử nào dc kéo thì null */}
           {(!activeDragItemType) && null}
