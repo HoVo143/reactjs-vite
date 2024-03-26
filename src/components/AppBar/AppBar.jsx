@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import SelectMode from '~/components/ModeSelect/SelectMode'
-import Workspaces from './Menus/workspaces'
+// import Workspaces from './Menus/workspaces'
 import AppsIcon from '@mui/icons-material/Apps'
 import { ReactComponent as TrelloLogo } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
@@ -48,7 +48,7 @@ const AppBar = () => {
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
-            <Workspaces/>
+            {/* <Workspaces/> */}
             <Recent/>
             <Templates/>
             <Starred/>
