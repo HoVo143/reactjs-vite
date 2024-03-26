@@ -389,7 +389,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
         width: '100%',
         p: '10px 0',
         height: (theme) => theme.hoCustom.boardContentHeight,
-        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
+        // bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#38ada9')
       }}>
         {/* List Columns */}
         <ListColumns

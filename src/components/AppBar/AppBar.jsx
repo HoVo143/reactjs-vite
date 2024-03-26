@@ -4,7 +4,7 @@ import AppsIcon from '@mui/icons-material/Apps'
 import { ReactComponent as TrelloLogo } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
 import Typography from '@mui/material/Typography'
-import Workspaces from './Menus/workspaces'
+// import Workspaces from './Menus/workspaces'
 import Recent from './Menus/Recent'
 import Templates from './Menus/Templates'
 import Starred from './Menus/Starred'
@@ -36,7 +36,9 @@ const AppBar = () => {
         justifyContent: 'space-between',
         gap: 2,
         overflowX: 'auto',
-        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : '#1565c0')
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : '#079992')
+        // bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : '#1565c0')
+
       }}>
         <Box sx={{ display: 'flex', alignItems:' center', gap: 2 }}>
           <AppsIcon sx={{ color: 'white' }} />
@@ -48,7 +50,7 @@ const AppBar = () => {
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
-            <Workspaces/>
+            {/* <Workspaces/> */}
             <Recent/>
             <Templates/>
             <Starred/>

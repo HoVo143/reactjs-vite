@@ -110,9 +110,9 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
                 sx={{
                   boxShadow: 'none',
                   border: '0.5px solid',
-                  borderColor: (theme) => theme.palette.primary.main,
-                  bgcolor: (theme) => theme.palette.primary.main,
-                  '&:hover' : { bgcolor: (theme) => theme.palette.primary.main }
+                  borderColor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
+                  bgcolor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
+                  '&:hover' : { bgcolor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992'}
                 }}
               > Add Column </Button>
               <CloseIcon
@@ -123,7 +123,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
                   color: 'white',
                   cursor: 'pointer',
                   borderRadius: '3px',
-                  bgcolor: (theme) => theme.palette.primary.main,
+                  bgcolor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
                   '&:hover' : { bgcolor: (theme) => theme.palette.error.main }
                 }}
                 onClick = {toggleOpenNewColumnForm} //set về rỗng

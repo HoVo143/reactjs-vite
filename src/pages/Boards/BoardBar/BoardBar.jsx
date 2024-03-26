@@ -42,7 +42,8 @@ function BoardBar({ board }) {
         paddingX: 2,
         overflowX: 'auto',
         // borderBottom: '1px solid white',
-        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
+        // bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#38ada9')
       }}>
 
         <Box sx={{ display: 'flex', alignItems:' center', gap: 2 }}>
@@ -100,13 +101,14 @@ function BoardBar({ board }) {
             sx = {{
               gap: '10px',
               '& .MuiAvatar-root' :{
+                bgcolor: '#ecf0f1',
                 width : 34,
                 height: 34,
                 fontSize: 16,
                 border : 'none',
-                color: 'white',
+                color: '#16a085',
                 cursor: 'pointer',
-                '&:first-of-type' : { bgcolor: '#a4b0be' }
+                '&:first-of-type' : { bgcolor: '#ecf0f1' }
               }
             }}
           >

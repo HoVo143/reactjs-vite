@@ -171,8 +171,8 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
                 onClick={toggleOpenNewCardForm}
                 sx={{
                   '&:hover' : {
-                    color: 'success.dark',
-                    '& .add-card-icon': { color: 'success.dark' }
+                    color: '#079992',
+                    '& .add-card-icon': { color: '#079992' }
                   }
                 }}>
                 <ListItemIcon><AddCardIcon fontSize="small" className='add-card-icon' /></ListItemIcon>
@@ -230,7 +230,9 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
               alignItems: 'center',
               justifyContent:'space-between'
             }}>
-              <Button startIcon={<AddCardIcon/>} onClick={toggleOpenNewCardForm} >Add new card</Button>
+              <Button sx={{
+                color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#079992')
+              }} startIcon={<AddCardIcon/>} onClick={toggleOpenNewCardForm} >Add new card</Button>
               <Tooltip title= "Drag to move">
                 <DragHandleIcon sx={{ cursor: 'pointer' }}/>
               </Tooltip>
@@ -249,14 +251,14 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
                 sx={{
                   '& label' : { color: 'text.primary' },
                   '& input' : {
-                    color: (theme) => theme.palette.primary.main,
+                    color: (theme) => theme.palette.mode === 'dark' ? 'white' : '#079992',
                     bgcolor: (theme) => {theme.palette.mode === 'dark' ? '#333643' : 'white'}
                   },
-                  '& label.Mui-focused' : { color: (theme) => theme.palette.primary.main },
+                  '& label.Mui-focused' : { color: (theme) => theme.palette.mode === 'dark' ? 'white' : '#079992' },
                   '& .MuiOutlinedInput-root' : {
-                    '& fieldset': { borderColor: (theme) => theme.palette.primary.main },
-                    '&:hover fieldset': { borderColor: (theme) => theme.palette.primary.main },
-                    '&.Mui-focused fieldset': { borderColor: (theme) => theme.palette.primary.main }
+                    '& fieldset': { borderColor: (theme) => theme.palette.mode === 'dark' ? 'white' : '#079992' },
+                    '&:hover fieldset': { borderColor: (theme) => theme.palette.mode === 'dark' ? 'white' : '#079992'},
+                    '&.Mui-focused fieldset': { borderColor: (theme) => theme.palette.mode === 'dark' ? 'white' : '#079992' }
                   },
                   '& .MuiOutlinedInput-input' : {
                     borderRadius: 1
@@ -273,20 +275,20 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
                     minHeight: '100%',
                     boxShadow: 'none',
                     border: '0.5px solid',
-                    borderColor: (theme) => theme.palette.primary.main,
-                    bgcolor: (theme) => theme.palette.primary.main,
-                    '&:hover' : { bgcolor: (theme) => theme.palette.primary.main }
+                    borderColor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
+                    '&:hover' : { bgcolor: '#079992' }
                   }}
                 > Add </Button>
                 <CloseIcon
                   fontSize='small'
                   sx={{
-                    minWidth: '50px',
+                    minWidth: '40px',
                     minHeight: '100%',
-                    color: (theme) => theme.palette.warning.light,
+                    color: 'white',
                     cursor: 'pointer',
                     borderRadius: '3px',
-                    bgcolor: (theme) => theme.palette.primary.main,
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? '#bdc3c7' : '#079992',
                     '&:hover' : { bgcolor: (theme) => theme.palette.error.main }
                   }}
                   onClick = {toggleOpenNewCardForm} //set về rỗng

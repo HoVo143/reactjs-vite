@@ -44,16 +44,7 @@ function Starred() {
           <ListItemText inset>Single</ListItemText>
         </MenuItem>
         <MenuItem>
-          <ListItemText inset>1.15</ListItemText>
-        </MenuItem>
-        <MenuItem>
           <ListItemText inset>Double</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Check />
-          </ListItemIcon>
-          Custom: 1.2
         </MenuItem>
         <Divider />
         <MenuItem>
