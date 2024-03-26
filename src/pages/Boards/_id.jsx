@@ -177,7 +177,7 @@ function Board() {
         color : 'white'
       }}>
         <CircularProgress />
-        <Typography>Loading board...</Typography>
+        <Typography>Chờ Loading data tí...</Typography>
       </Box>
     )
   }

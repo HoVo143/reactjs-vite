@@ -17,7 +17,7 @@ import AddCardIcon from '@mui/icons-material/AddCard'
 import Button from '@mui/material/Button'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ListCards from './ListCards/ListCards'
-import { mapOrder } from '~/utils/sorts'
+// import { mapOrder } from '~/utils/sorts'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import TextField from '@mui/material/TextField'
@@ -110,9 +110,7 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
       // Sau này sẽ đưa dữ liệu Board ra ngoài Redux Global Store để có thể gọi Api ở đây thay vì phải lần
       // lượt gọi ngược lên những component cha phía bên trên
       deleteColumnDetails(column._id)
-    }).catch(() => {
-
-    })
+    }).catch(() => {})
   }
 
   return (

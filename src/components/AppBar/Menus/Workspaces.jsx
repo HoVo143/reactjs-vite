@@ -11,21 +11,21 @@ import ContentCut from '@mui/icons-material/ContentCut'
 import ContentCopy from '@mui/icons-material/ContentCopy'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Cloud from '@mui/icons-material/Cloud'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'  
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 function Workspaces() {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
-  };
+  }
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
   return (
     <Box>
       <Button
-        sx={{color: 'white'}}
+        sx={{ color: 'white' }}
         id="basic-button-workspaces"
         aria-controls={open ? 'basic-menu-workspaces' : undefined}
         aria-haspopup="true"
