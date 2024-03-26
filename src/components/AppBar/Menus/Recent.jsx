@@ -29,7 +29,7 @@ function Recent() {
         onClick={handleClick}
         endIcon={ <ExpandMoreIcon/> } //mui icon
       >
-        recent
+        Recent
       </Button>
       <Menu
         id="basic-menu-recent"

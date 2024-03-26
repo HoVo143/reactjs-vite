@@ -29,7 +29,7 @@ function Starred() {
         onClick={handleClick}
         endIcon={ <ExpandMoreIcon/> } //mui icon
       >
-        starred
+        Starred
       </Button>
       <Menu
         id="basic-menu-starred"

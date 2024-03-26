@@ -29,7 +29,7 @@ function Templates() {
         onClick={handleClick}
         endIcon={ <ExpandMoreIcon/> } //mui icon
       >
-        templates
+        Templates
       </Button>
       <Menu
         id="basic-menu-templates"
