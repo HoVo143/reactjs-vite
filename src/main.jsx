@@ -21,5 +21,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ToastContainer theme="colored" position="bottom-right"/>  { /*thong bao loi~*/ }
     </ConfirmProvider>
   </CssVarsProvider>
-  // </React.StrictMode> 
+  // </React.StrictMode>
 )
